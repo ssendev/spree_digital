@@ -25,6 +25,12 @@
 
         <%= button Spree.t(:upload, scope: "spree_digital") %>
       </p>
+      <% unless Spree::DigitalConfiguration[:digitals_are_unshippable] %>
+        <div class="field" data-hook="unshippable">
+          <input type="checkbox" id="variant_unshippable_<%= variant.id %>" data-hook="variant-unshippable" <%= variant.unshippable ? 'checked=checked' : '' %> data-url="<%= api_product_variant_path(@product, variant) %>" />
+          <label for="variant_unshippable_<%= variant.id %>"><%= Spree.t(:unshippable, scope: 'digitals') %></label>
+        </div>
+      <% end %>
     </fieldset>
   <% end %>
 </div>
