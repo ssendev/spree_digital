@@ -18,3 +18,17 @@
   <%= render 'form', :variant => @product.master %>
 
 <% end %>
+
+<% unless Spree::DigitalConfiguration[:digitals_are_unshippable] %>
+  <script>
+    $('[data-hook="variant-unshippable"]').change(function() {
+      $.ajax({
+        "url": $(this).data('url'),
+        "type": "put",
+        "success": function(){ show_flash("success", '<%= Spree.t(:variant_updated, scope: 'digitals') %>'); },
+        "error": function(){  show_flash("error", '<%= Spree.t(:update_failed, scope: 'digitals') %>'); },
+        "data": {"variant": { "unshippable": this.checked }}
+      });
+    });
+  </script>
+<% end %>

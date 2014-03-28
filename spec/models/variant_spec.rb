@@ -31,4 +31,28 @@ describe Spree::Variant do
       Spree::Digital.count.should == 1
     end
   end
+
+  context "unshippable" do
+    let(:variant) { create(:variant) }
+
+    after(:each) do
+      Spree::DigitalConfiguration[:digitals_are_unshippable] = true
+    end
+
+    it "should be digital if it is unshippable" do
+      Spree::DigitalConfiguration[:digitals_are_unshippable] = false
+      variant.digital?.should be_false
+      variant.unshippable = true
+      variant.save!
+      variant.digital?.should be_true
+    end
+
+    it "should not be digital if it is shippable" do
+      Spree::DigitalConfiguration[:digitals_are_unshippable] = false
+      variant.digital?.should be_false
+      variant.unshippable = false
+      variant.save!
+      variant.digital?.should be_false
+    end
+  end
 end
