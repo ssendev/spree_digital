@@ -4,7 +4,11 @@ Spree::Variant.class_eval do
   
   # Is this variant to be downloaded by the customer?
   def digital?
-    Spree::DigitalConfiguration[:digitals_are_unshippable] ? digitals.present? : !!unshippable
+     digitals.present?
+  end
+
+  def unshippable?
+    !!unshippable
   end
 
   private

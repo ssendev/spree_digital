@@ -6,7 +6,11 @@ Spree::LineItem.class_eval do
   def digital?
     variant.digital?
   end
-  
+
+  def unshippable?
+    variant.unshippable?
+  end
+
   private
   
   # TODO there is no reason to create the digital links until the order is complete
@@ -26,7 +30,7 @@ Spree::LineItem.class_eval do
     variant.digitals.each do |digital|
       self.quantity.times do
         digital_links.create!(:digital => digital)
-      end      
+      end
     end
   end
 
