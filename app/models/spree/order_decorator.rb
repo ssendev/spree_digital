@@ -1,4 +1,18 @@
 Spree::Order.class_eval do
+
+  # all products are unshippable
+  def unshippable?
+    line_items.all? { |item| item.unshippable? }
+  end
+
+  def some_unshippable?
+    line_items.any? { |item| item.unshippable? }
+  end
+
+  def unshippable_line_items
+    line_items.select(&:unshippable?)
+  end
+
   # all products are digital
   def digital?
     line_items.all? { |item| item.digital? }

@@ -10,10 +10,12 @@ module SpreeDigital
 
     initializer "spree.register.digital_shipping", :after => 'spree.register.calculators' do |app|
       app.config.spree.calculators.shipping_methods << Spree::Calculator::Shipping::DigitalDelivery
+      app.config.spree.calculators.shipping_methods << Spree::Calculator::Shipping::Unshippable
     end
 
     initializer 'spree_digital.custom_spree_splitters', :after => 'spree.register.stock_splitters' do |app|
       app.config.spree.stock_splitters << Spree::Stock::Splitter::Digital
+      app.config.spree.stock_splitters << Spree::Stock::Splitter::Unshippable
     end
 
     def self.activate

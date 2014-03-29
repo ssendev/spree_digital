@@ -25,4 +25,5 @@ en:
       unauthorized:
         explained: This download link has expired.
         unauthorized: Unauthorized
+      unshippable: Unshippable
       upload: Upload
